@@ -16,6 +16,21 @@
 
 use agb::{display, syscall};
 
+use agb::{include_aseprite,
+    display::object::{Graphics, Tag}
+};
+
+//Import the sprites into this constant. This holds the sprite and palette data
+// in a way that is manageable by AGB.
+
+const GRAPHICS: &Graphics = include_aseprite!("gfx/sprites.aseprite");
+
+// Define easy way of referencing the sprites
+
+const PADDLE_END: &Tag = GRAPHICS.tags().get("Paddle End");
+const PADDLE_MID: &Tag = GRAPHICS.tags().get("Paddle Mid");
+const BALL: &Tag = GRAPHICS.tags().get("Ball");
+
 // The main function must take 1 arguments and never return. The agb::entry decorator
 // ensures that everything is in order. `agb` will call this after setting up the stack
 // and interrupt handlers correctly. It will also handle creating the `Gba` struct for you.

@@ -36,5 +36,18 @@ const BALL: &Tag = GRAPHICS.tags().get("Ball");
 // and interrupt handlers correctly. It will also handle creating the `Gba` struct for you.
 #[agb::entry]
 fn main(mut gba: agb::Gba) -> ! {
-   loop {} //infinite loop
+    //get the OAM manager
+    let object = gba.display.object.get();
+
+    //create an object with the ball sprite
+    let mut ball = object.object_sprite(BALL.sprite(0));
+
+    //place this somewhere on screen
+    ball.set_x(50).set_y(50).show();
+
+    //commit the object controller so this change is reflected on the screen
+    //this should normally be done in vblank but this is the lazy way of getting started
+    object.commit();
+
+    loop {} //infinite loop
 }

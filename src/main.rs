@@ -17,7 +17,7 @@
 use agb::{display, syscall};
 
 use agb::{include_aseprite,
-    display::object::{Graphics, Tag}
+          display::object::{Graphics, Tag},
 };
 
 //Import the sprites into this constant. This holds the sprite and palette data
@@ -59,19 +59,19 @@ fn main(mut gba: agb::Gba) -> ! {
 
         //check if ball reaches edge of screen and reverse it's direction
 
-        if ball_x == 0 || ball_x == agb::display::WIDTH-16 {
-        x_velocity = -x_velocity
+        if ball_x == 0 || ball_x == agb::display::WIDTH - 16 {
+            x_velocity = -x_velocity
         }
 
-        if ball_y == 0 || ball_y == agb::display::HEIGHT-16 {
-                y_velocity = -y_velocity
+        if ball_y == 0 || ball_y == agb::display::HEIGHT - 16 {
+            y_velocity = -y_velocity
         }
 
         //set position of ball to match new calculated position
 
-       ball.set_x(ball_x as u16).set_y(ball_y as u16);
+        ball.set_x(ball_x as u16).set_y(ball_y as u16);
 
-       agb::display::busy_wait_for_vblank();
-       object.commit();
+        agb::display::busy_wait_for_vblank();
+        object.commit();
     }
 }

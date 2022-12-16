@@ -45,9 +45,33 @@ fn main(mut gba: agb::Gba) -> ! {
     //place this somewhere on screen
     ball.set_x(50).set_y(50).show();
 
-    //commit the object controller so this change is reflected on the screen
-    //this should normally be done in vblank but this is the lazy way of getting started
-    object.commit();
+    let mut ball_x = 50;
+    let mut ball_y = 50;
+    let mut x_velocity = 1;
+    let mut y_velocity = 1;
 
-    loop {} //infinite loop
+    loop {
+        // this will calculate the new position and enforce the position of the ball
+        // remains on screen at all times
+
+        ball_x = (ball_x + x_velocity).clamp(0, agb::display::WIDTH - 16);
+        ball_y = (ball_y + y_velocity).clamp(0, agb::display::HEIGHT - 16);
+
+        //check if ball reaches edge of screen and reverse it's direction
+
+        if ball_x == 0 || ball_x == agb::display::WIDTH-16 {
+        x_velocity = -x_velocity
+        }
+
+        if ball_y == 0 || ball_y == agb::display::HEIGHT-16 {
+                y_velocity = -y_velocity
+        }
+
+        //set position of ball to match new calculated position
+
+       ball.set_x(ball_x as u16).set_y(ball_y as u16);
+
+       agb::display::busy_wait_for_vblank();
+       object.commit();
+    }
 }

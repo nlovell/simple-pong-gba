@@ -1,0 +1,19 @@
+[package]
+name = "simple-pong-gba"
+version = "0.1.0"
+authors = ["nlovell"]
+edition = "2022"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+agb = "0.12.2"
+
+[profile.dev]
+opt-level = 2
+debug = true
+
+[profile.release]
+panic = "abort"
+lto = true
+debug = true
